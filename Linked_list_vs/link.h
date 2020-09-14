@@ -14,20 +14,26 @@ typedef PtrToNode Position;
 void DeleteList(List L);
 List MakeEmpty(List L);
 
-//先自己写然后与书比对
 int IsEmpty(List L);
 int IsLast(Position P, List L);
 Position Find(ElementType X, List L);
 Position FindPrevious(ElementType X, List L);
 void Delete(ElementType X, List L);
+//将元素插入P之后
 void Insert(ElementType X, List L, Position P);
+//将元素插入P之前
+void InsertPrev(ElementType X, List L, Position P);
 void DeleteList(List L);
 Position Header(List L);
 Position First(List L);
 Position Advance(Position P);
 ElementType Retrieve(Position P);
-//EXERCISE
+//打印L中所有元素
 void Travel(List L);
+//以P的值为下标打印L中元素
 void PrintLots(List L, List P);
+//交换P后的两个结点
 void SwapWithNext(List L, Position BeforeP);
+//打印L1、L2的并集
+List Intersect(List L1, List L2);
 #endif // _LIST_H

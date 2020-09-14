@@ -71,14 +71,35 @@ void Delete(ElementType X, List L)
 }
 void Insert(ElementType X, List L, Position P)
 {
+	if (!P)
+	{
+		printf("not legal\n");
+		return;
+	}
 	Position Tmp;
 	Tmp = malloc(sizeof(Node));
-	if (Tmp)
+	if(Tmp)
 	{
 		Tmp->Element = X;
 		Tmp->Next = P->Next;
 		P->Next = Tmp;
 	}
+}
+void InsertPrev(ElementType X, List L, Position P)
+{
+	if (!P)
+	{
+		printf("\nnot legal\n");
+		return;
+	}
+	Position Prev = FindPrevious(P->Element, L);
+	Position Tmp = malloc(sizeof(Node));
+	if (Tmp)
+	{
+		Tmp->Element = X;
+		Tmp->Next = P;
+		Prev->Next = Tmp;
+	}	
 }
 Position Header(List L)
 {
@@ -130,5 +151,36 @@ void PrintLots(List L, List P)
 
 void SwapWithNext(List L, Position BeforeP)
 {
-	
+	Position Tmp = BeforeP->Next;
+	BeforeP->Next = BeforeP->Next->Next;
+
+	Position Tmp2 = BeforeP->Next->Next;
+	BeforeP->Next->Next = Tmp;
+	BeforeP->Next->Next->Next = Tmp2;
+}
+
+List Intersect(List L1, List L2)
+{
+	List Result;
+	Position L1pos, L2pos, ResultPos;
+	Result = MakeEmpty(NULL);
+	L1pos = First(L1);
+	L2pos = First(L2);
+	ResultPos = Header(Result);
+
+	while (L1pos && L2pos)
+	{
+		if (L1pos->Element < L2pos->Element)
+			L1pos = L1pos->Next;
+		else if (L1pos->Element > L2pos->Element)
+			L2pos = L2pos->Next;
+		else
+		{
+			Insert(L1pos->Element, Result, ResultPos);
+			L1pos = Advance(L1pos);
+			L2pos = Advance(L2pos);
+			ResultPos = Advance(ResultPos);
+		}
+	}
+	return Result;
 }

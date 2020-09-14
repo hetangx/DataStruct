@@ -184,3 +184,49 @@ List Intersect(List L1, List L2)
 	}
 	return Result;
 }
+
+List Union(List L1, List L2)
+{
+	Position L1Pos, L2Pos, ResultPos;
+	List Result = MakeEmpty(NULL);
+	L1Pos = First(L1);
+	L2Pos = First(L2);
+	ResultPos = Header(Result);
+
+	while (L1Pos && L2Pos)
+	{
+		if (L1Pos->Element == L2Pos->Element)
+		{
+			Insert(L1Pos->Element, Result, ResultPos);
+			ResultPos = Advance(ResultPos);
+			L1Pos = Advance(L1Pos);
+			L2Pos = Advance(L2Pos);
+		}
+		else if (L1Pos->Element < L2Pos->Element)
+		{
+			Insert(L1Pos->Element, Result, ResultPos);
+			L1Pos = Advance(L1Pos);
+			ResultPos = Advance(ResultPos);
+		}
+		else
+		{
+			Insert(L2Pos->Element, Result, ResultPos);
+			L2Pos = Advance(L2Pos);
+			ResultPos = Advance(ResultPos);
+		}
+	}
+	//L1，L2中还有剩余节点，全部加入result
+	while (L1Pos)
+	{
+		Insert(L1Pos->Element, Result, ResultPos);
+		L1Pos = Advance(L1Pos);
+		ResultPos = Advance(ResultPos);
+	}
+	while (L2Pos)
+	{
+		Insert(L2Pos->Element, Result, ResultPos);
+		L2Pos = Advance(L2Pos);
+		ResultPos = Advance(ResultPos);
+	}
+	return Result;
+}

@@ -34,6 +34,8 @@ void Travel(List L);
 void PrintLots(List L, List P);
 //交换P后的两个结点
 void SwapWithNext(List L, Position BeforeP);
-//打印L1、L2的并集
+//打印L1、L2的交集
 List Intersect(List L1, List L2);
+//打印L1、L2的并集
+List Union(List L1, List L2);
 #endif // _LIST_H
